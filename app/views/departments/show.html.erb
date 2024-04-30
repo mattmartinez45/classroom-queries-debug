@@ -57,7 +57,7 @@
 <ul>
   <% matching_courses.each do |course| %>
     <li>
-      <% matching_id = course.course_id %>%
+      <% matching_id = course.id %>%
       <a href="/courses/<%= course.id %>"><%= course.title %></a>
     </li>
   <% end %>
