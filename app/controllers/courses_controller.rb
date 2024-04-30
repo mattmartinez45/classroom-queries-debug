@@ -26,12 +26,13 @@ class CoursesController < ApplicationController
 
   def update
     id = params.fetch("path_id")
-    matching_course = Course.where({ :id => the_id })
+    matching_course = Course.where({ :id => id })
     the_course = matching_course.at(0)
 
-    the_course.title = params.fetch("q_title")
-    the_course.term_offered = params.fetch("query_term")
+    the_course.title = params.fetch("query_title")
+    the_course.term_offered = params.fetch("query_term_offered")
     the_course.department_id = params.fetch("query_department_id")
+    the_course.save
 
     redirect_to("/courses/#{the_course.id}")
   end
