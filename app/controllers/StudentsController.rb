@@ -13,24 +13,20 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new
-    @student.first_name = params.fetch("query_first_name")
-    @student.last_name = params.fetch("query_last_name")
-    @student.email = params.fetch("query_email")
+    student = Student.new
+    student.first_name = params.fetch("query_first_name")
+    student.last_name = params.fetch("query_last_name")
+    student.email = params.fetch("query_email")
+    student.save
+    redirect_to("/students")
 
-    if @student.valid?
-      @student.save
-      redirect_to("/students", { :notice => "Student created successfully." })
-    else
-      redirect_to("/students", { :notice => "Student failed to create successfully." })
-    end
   end
 
   def update
     the_id = params.fetch("path_id")
     @student = Student.where({ :id => the_id }).at(0)
 
-    @student.first_name = params.fetch("query_first_name")
+    @student.first_name = params.fetch("query_name")
     @student.last_name = params.fetch("query_last_name")
     @student.email = params.fetch("query_email")
 
