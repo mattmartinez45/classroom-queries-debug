@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   
   post("/modify_course/:path_id", { :controller => "courses", :action => "update" })
 
-  post("/delete_course/:path_id", { :controller => "courses", :action => "destroy" })
+  get("/delete_course/:path_id", { :controller => "courses", :action => "destroy" })
 
   #------------------------------
   # Student routes

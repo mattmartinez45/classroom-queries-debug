@@ -18,6 +18,9 @@ class CoursesController < ApplicationController
     course.title = params.fetch("q_title")
     course.term_offered = params.fetch("query_term")
     course.department_id = params.fetch("query_department_id")
+    course.save
+
+    redirect_to("/courses")
 
   end
 
@@ -34,10 +37,9 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    the_id = params.fetch("path")
+    the_id = params.fetch("path_id")
     matching_cours = Course.where({ :id => the_id })
     the_course_d = matching_cours.at(0)
-
     the_course_d.destroy
 
     redirect_to("/courses")
