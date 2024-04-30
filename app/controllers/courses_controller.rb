@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   def index
-    @courses = Course.all.order({ :created_at => :desc })
+    matching_courses = Course.all
+    @courses = matching_courses.order({ :created_at => :desc })
 
     render({ :template => "courses/index" })
   end
@@ -13,41 +14,32 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new
-    @course.title = params.fetch("query_title")
-    @course.term_offered = params.fetch("query_term_")
-    @course.department_id = params.fetch("query_department_id")
+    course = Course.new
+    course.title = params.fetch("q_title")
+    course.term_offered = params.fetch("query_term")
+    course.department_id = params.fetch("query_department_id")
 
-    if @course.valid?
-      @course.save
-      redirect_to("/courses", { :notice => "Course created successfully." })
-    else
-      redirect_to("/courses", { :notice => "Course failed to create successfully." })
-    end
   end
 
   def update
     id = params.fetch("path_id")
-    @course = Course.where({ :id => the_id }).at(0)
+    matching_course = Course.where({ :id => the_id })
+    the_course = matching_course.at(0)
 
-    @course.title = params.fetch("query_title")
-    @course.term_offered = params.fetch("query_term_offered")
-    @course.department_id = params.fetch("query_department_id")
+    the_course.title = params.fetch("q_title")
+    the_course.term_offered = params.fetch("query_term")
+    the_course.department_id = params.fetch("query_department_id")
 
-    if @course.valid?
-      @course.save
-      redirect_to("/courses/#{@course.id}", { :notice => "Course updated successfully."} )
-    else
-      redirect_to("/courses/#{@course.id}", { :alert => "Course failed to update successfully." })
-    end
+    redirect_to("/courses/#{the_course.id}")
   end
 
   def destroy
     the_id = params.fetch("path")
-    @course = Course.where({ :id => the_id }).at(0)
+    matching_cours = Course.where({ :id => the_id })
+    the_course_d = matching_cours.at(0)
 
-    @course.destroy
+    the_course_d.destroy
 
-    redirect_to("/courses", { :notice => "Course deleted successfully."} )
+    redirect_to("/courses")
   end
 end

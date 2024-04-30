@@ -10,7 +10,7 @@
       Title
     </label>
 
-    <input type="text" id="title_b" name="q_title">
+    <input type="text" id="title_box" name="q_title">
   </div>
 
   <div>
@@ -64,7 +64,7 @@
     </th>
   </tr>
 
-  <% @course.each do |course| %>
+  <% @courses.each do |course| %>
     <tr>
       <td>
         <%= course.id %>

@@ -52,10 +52,12 @@
 <hr>
 
 <h2>Courses</h2>
-<% courses = Course.where({ :department_id => @department.name }) %>
+<%= d_id = @department.id%>
+<% matching_courses = Course.where({ :department_id => d_id }) %>
 <ul>
-  <% courses.each do |course| %>
+  <% matching_courses.each do |course| %>
     <li>
+      <% matching_id = course.course_id %>%
       <a href="/courses/<%= course.id %>"><%= course.title %></a>
     </li>
   <% end %>
